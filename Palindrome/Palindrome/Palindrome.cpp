@@ -23,14 +23,18 @@ int main() {
 	string repeat,
 		input,
 		reduced_string;
-	char repChar = 'y';
+	cout << "Welcome to the palindrome tester.\n"
+		<< "When you are done just press enter when inputting to exit\n";
 	do {
-		cout << "Welcome to the palindrome tester.\n"
-			<< "Please enter a word or phrase to test; ";
+		
+			cout << "Please enter a word or phrase to test:\n";
 		getline(cin, input);
-		reduced_string = reduce(input);
-		cout << reduced_string;
-		if (check(reduced_string)) {
+		cin.clear();
+		if (input == "") {
+			break;
+		}
+		//cout << reduce(input);
+		if (check(reduce(input))) {
 			cout << input << " Is a palindrome\n";
 		}
 		else {
@@ -38,19 +42,31 @@ int main() {
 		}
 
 
-		cout << "would you like to check another word? (Y/N); ";
-		cin >> repeat;
-		repChar = tolower(repeat[0]);
-	} while (repChar == 'y');
+	} while (true);
 
 
 }
 
 bool check(string input) {
 	bool retVal = false;
-	int check1 = 0, check2 = input.size();
-	for (int i = 0; i < input.size(); i++) {
-
+	int check1 = 0, check2 = input.size()-1;
+	while(check1 <= check2) {
+		if (check1 == check2) {
+			retVal = true;
+			break;
+		}
+		else if (check2 - 1 == check1 && input[check1] == input[check2]) {
+			retVal = true;
+			break;
+		}
+		if (input[check1] == input[check2]) {
+			check1++;
+			check2--;
+			continue;
+		}
+		else {
+			break;
+		}
 	}
 	return(retVal);
 }
@@ -59,16 +75,15 @@ string reduce(string input) {
 	string reduceVal = input;
 	string retVal;
 	int length = 0;
-	char remChar[] = { ' ','.','!','?',',' };
-	for (int i = 0; i < 5; i++) {
-		reduceVal.erase(remove(reduceVal.begin(), reduceVal.end(), remChar[i]), reduceVal.end());
-	}
 	vector <char> arr;
 	for (int x = 0; x < reduceVal.size(); x++) {
 		arr.push_back(tolower(reduceVal[x]));
 	}
+	char num[] = { '0','1','2','3','4','5','6','7','8','9' };
 	for (int i = 0; i < arr.size(); i++) {
-		retVal += arr[i];
+		if ((arr[i] >= 97 && arr[i] <= 122)or(arr[i] >= 48 && arr[i] <= 57)) {
+			retVal += arr[i];
+		}
 	}
 	return (retVal);
 }

@@ -7,10 +7,8 @@
 
 #include<iostream>
 #include<iomanip>
-#include<cmath>
 #include<string>
-#include <regex>
-#include<algorithm>
+#include<vector>
 
 
 using namespace std;
